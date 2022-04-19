@@ -1,0 +1,14 @@
+{
+    "name": "John",
+    "age": 30,
+    "isAdmin": false,
+    "stack": [
+        "html",
+        "css",
+        "jQuery"
+    ],
+    "address": {
+        "coutry": "Russia",
+        "city": "Moscow"
+    }
+}
