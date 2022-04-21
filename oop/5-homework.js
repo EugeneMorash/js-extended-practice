@@ -33,7 +33,7 @@ function createUsernames(array) {
   return array;
 }
 const processedData = createUsernames(data);
-console.log(processedData);
+// console.log(processedData);
 
 
 //* 2. Написать функцию
@@ -42,6 +42,8 @@ console.log(processedData);
 // Функция возвращает true, если такая дата существует, или false - если не существует
 // * Необходимо учесть високосные года
 // * Функция работает только с положительными годами (наша эра)
+
+
 
 
 

@@ -48,7 +48,8 @@ const secondObject = {
 };
 
 // deepEqual(firstObject, secondObject); // true
-// deepEqual({ a:1, b: 3 }, { b: 2, a: 1}); // false
+const res = deepEqual({ a: 1, b: 3, c: { d: 2, c: 3 }, p: 1 }, { b: 3, c: { d: 2, c: 3 }, a: 1, p: 1 }); // false
+console.log(res);
 // deepEqual(1, 2); // false
 // deepEqual(true, false); // false
 
@@ -59,25 +60,71 @@ const secondObject = {
 
 
 function deepEqual(obj1, obj2) {
-  let middleArray = [];
-  function objObj(obj) {
-    for (const key in obj) {
-      middleArray.push([key, typeof obj[key]]);
-      if (typeof obj[key] === "object") {
-        objObj(obj[key])
+  if (JSON.stringify(obj1).length !== JSON.stringify(obj2).length) {
+    return false;
+  }
+  return (function deepEqualEntry(obj1, obj2) {
+    for (const key in obj1) {
+      if (obj1[key] !== null && typeof obj1[key] === "object") {
+
+        if (!obj2.hasOwnProperty(key)) {
+          return false;
+        }
+
+        if (!deepEqualEntry(obj1[key], obj2[key])) {
+          return false;
+        }
+
+      } else if (obj1[key] !== obj2[key]) {
+        return false;
       }
     }
-    // console.log(middleArray);
-    return JSON.stringify(middleArray.sort());
-  }
-  const firstJson = objObj(obj1);
-  console.log(firstJson);
-  middleArray = [];
-  const secondJson = objObj(obj2);
-  console.log(secondJson);
-  return firstJson === secondJson;
+    return true;
+  })(obj1, obj2);
+
 }
-console.log(deepEqual(firstObject, secondObject));
+console.log(deepEqual(2, 1));
+
+
+// * 8 типов * //
+// null (typoef null === object)
+// undefined
+
+// number
+// string
+// boolean
+
+// object 
+// [array, object, function (typoef fun(){} === function), nodelist, htmlCollection]
+// [map, set, date, weekmap, weekset, error, syntaxerror ...]
+
+
+// bigint
+// symbol
+
+
+
+
+// function deepEqual(obj1, obj2) {
+//   let middleArray = [];
+//   function objObj(obj) {
+//     for (const key in obj) {
+//       middleArray.push([key, typeof obj[key]]);
+//       if (typeof obj[key] === "object") {
+//         objObj(obj[key])
+//       }
+//     }
+//     // console.log(middleArray);
+//     return JSON.stringify(middleArray.sort());
+//   }
+//   const firstJson = objObj(obj1);
+//   console.log(firstJson);
+//   middleArray = [];
+//   const secondJson = objObj(obj2);
+//   console.log(secondJson);
+//   return firstJson === secondJson;
+// }
+// console.log(deepEqual(firstObject, secondObject));
 // console.log(deepEqual(1, 1));
 // console.log(deepEqual({ a: 1, b: 3 }, { b: 2, a: 1 }));
 // console.log(deepEqual(1, 2));
