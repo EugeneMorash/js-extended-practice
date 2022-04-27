@@ -43,6 +43,21 @@ const processedData = createUsernames(data);
 // * Необходимо учесть високосные года
 // * Функция работает только с положительными годами (наша эра)
 
+function realTime(day, month, year) {
+  const refDate = new Date(year, month - 1, day);
+  const refYear = refDate.getFullYear();
+  if (refYear <= 0 || refYear > (new Date().getFullYear())) {
+    throw new Error("Wrong Year!")
+  }
+  if (month <= 0 || month > 12) {
+    throw new Error("Wrong Month!")
+  }
+  //?? getMonth
+
+  console.log(refYear);
+  console.log(refDate);
+}
+realTime(32, 11, 2021)
 
 
 
